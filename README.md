@@ -14,8 +14,7 @@ A template for Google Apps Script projects with local development support using 
 │   └── package.json    # Development dependencies
 ├── .claspignore       # Files to ignore when pushing to Google Apps Script
 ├── .eslintrc.json     # ESLint configuration
-├── .prettierrc        # Prettier configuration
-└── tsconfig.json      # TypeScript configuration
+└── .prettierrc        # Prettier configuration
 ```
 
 ## Setup
@@ -68,9 +67,8 @@ npm run watch   # Watch for changes and push automatically
 ### Code Quality Tools
 
 ```bash
-npm run lint       # Run ESLint
-npm run format    # Run Prettier
-npm run type-check # Run TypeScript type checking
+npm run lint    # Run ESLint
+npm run format  # Run Prettier
 ```
 
 ## Environment Variables
@@ -93,7 +91,6 @@ This directory contains all files that will be synced with Google Apps Script:
 
 - `.gs` or `.js` files containing your Google Apps Script code
 - `appsscript.json` manifest file
-- TypeScript files (`.ts`) if you're using TypeScript
 
 ### `/helper` Directory
 

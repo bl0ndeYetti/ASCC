@@ -1,14 +1,14 @@
 ### Project Structure
 
 - **Root Directory**: Contains configuration files only. No node modules or Apps Script files here.
-- **`/apps-script` Directory**: Holds all Google Apps Script source files (`.gs`, `.ts`, `.js`).
+- **`/apps-script` Directory**: Holds all Google Apps Script source files (`.gs`, `.js`).
 - **`/helper` Directory**: Contains Node.js dependencies, helper scripts, and development tools.
 
 ### Directory and File Placement Rules
 
 1. **Apps Script Files**:
 
-   - All `.ts`, `.gs`, or `.js` files intended for Google Apps Script must reside in `/apps-script`.
+   - All `.gs` or `.js` files intended for Google Apps Script must reside in `/apps-script`.
    - Each Apps Script file must be compatible with the Google Apps Script runtime (V8) and must not use ES modules. Use global functions instead.
 
 2. **Helper Files and Node Dependencies**:
@@ -17,23 +17,19 @@
    - No node packages should be installed directly in the root directory.
 
 3. **Configuration Files**:
-   - Place `.claspignore`, `tsconfig.json`, `.eslintrc.json`, `.prettierrc`, and `.env.template` files in the root directory.
+   - Place `.claspignore`, `.eslintrc.json`, `.prettierrc`, and `.env.template` files in the root directory.
    - These configuration files are not pushed to Apps Script but control local development and linting/formatting rules.
 
 ### Environment and Dependencies
 
 1. **Clasp and Project Setup**:
+
    - All `clasp` operations and NPM commands must be run from the `/helper` directory.
-   - Before running any command, verify that you are in the `/helper` directory by using `pwd` or `cd` commands as needed.
-2. **TypeScript and Type Definitions**:
+   - Before running any command, verify that you are in the `/helper` directory using `pwd` or `cd` commands as needed.
 
-   - Use `npm install` within `/helper` to install any type definitions or other dev dependencies.
-   - If using Google Apps Script type definitions, install `@types/google-apps-script` in `/helper`.
-   - Remove `/// <reference ...>` lines if unnecessary; rely on `tsconfig.json` for including type definitions.
-
-3. **Configuration and Environment Variables**:
+2. **Configuration and Environment Variables**:
    - Copy `.env.template` to `.env` and set required variables.
-   - Keep all sensitive data either in `.env` or the Apps Script’s script properties.
+   - Keep all sensitive data either in `.env` or the Apps Script's script properties.
 
 ### Initialization Steps
 
@@ -92,7 +88,7 @@
 
    - Create and edit `.js` files in `/apps-script`.
    - Ensure no imports/exports; define global functions.
-   - Add JSDoc comments and proper type annotations. Be extremely verbose
+   - Add JSDoc comments for documentation.
 
 2. **Build, Push, and Watch**:
    Run all commands from `/helper`:
@@ -107,22 +103,20 @@
 
 3. **Code Quality Tools**:
    ```bash
-   npm run lint        # Run ESLint
-   npm run format      # Format code with Prettier
-   npm run type-check  # Check TypeScript types
+   npm run lint      # Run ESLint
+   npm run format    # Format code with Prettier
    ```
 
 ### Best Practices
 
-1. **TypeScript Usage**:
+1. **Documentation**:
 
-   - Use interfaces for complex data structures.
-   - Annotate types fully and run `npm run type-check` to ensure no errors.
    - Use JSDoc for documenting public functions.
+   - Be clear about parameter types and return values in comments.
 
 2. **Google Apps Script V8 Runtime**:
 
-   - Use modern JavaScript features (ES2019 target).
+   - Use modern JavaScript features (ES2019).
    - Use `console.log()` for debug output.
    - Implement `try/catch` blocks for error handling.
    - Respect timezone and locale specifics.
@@ -137,7 +131,7 @@
 
    - Use environment variables for sensitive data.
    - If using external APIs, store keys in Script Properties.
-   - Follow Google’s OAuth and security guidelines.
+   - Follow Google's OAuth and security guidelines.
 
 5. **Development Flow**:
    - Always verify the current working directory is `/helper` before running `npm run` commands.
@@ -148,7 +142,6 @@
 ### Additional Notes
 
 - V8 runtime is enabled by default, no need for manual activation.
-- TypeScript compilation is handled automatically.
-- The provided `tsconfig.json` and ESLint/Prettier configs ensure compatibility with Google Apps Script.
+- The provided ESLint/Prettier configs ensure compatibility with Google Apps Script.
 - No ES modules; all code must be accessible as global functions.
 - Checking the working directory frequently helps prevent confusion and mistakes.
