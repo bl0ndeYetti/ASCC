@@ -34,8 +34,10 @@ yarn-error.log*
 helper/.env
 !helper/.env.template
 
-# Cursor specific
-cursorrules
+#contents of apps-script, keeping the apps script folder
+apps-script/*
+!apps-script/.gitkeep
+
 
 # Build output
 build/
