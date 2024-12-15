@@ -1,0 +1,38 @@
+{
+  "name": "helper",
+  "version": "1.0.0",
+  "description": "Helper scripts for Google Apps Script project",
+  "main": "index.js",
+  "scripts": {
+    "push": "node scripts/project-tools.js push",
+    "pull": "node scripts/project-tools.js pull",
+    "open": "node scripts/project-tools.js open",
+    "status": "node scripts/project-tools.js status",
+    "watch": "node scripts/project-tools.js watch",
+    "create": "node scripts/project-tools.js create",
+    "clone": "node scripts/project-tools.js clone",
+    "lint": "cd .. && eslint apps-script --ext .js,.ts",
+    "format": "cd .. && prettier --write \"apps-script/**/*.{js,ts}\"",
+    "type-check": "cd .. && tsc --noEmit"
+  },
+  "keywords": [
+    "google-apps-script",
+    "clasp",
+    "automation"
+  ],
+  "author": "Michael Stansky",
+  "license": "MIT",
+  "dependencies": {
+    "@google/clasp": "^2.4.2",
+    "chalk": "^4.1.2",
+    "dotenv": "^16.3.1"
+  },
+  "devDependencies": {
+    "@types/google-apps-script": "^1.0.78",
+    "@typescript-eslint/eslint-plugin": "^6.13.2",
+    "@typescript-eslint/parser": "^6.13.2",
+    "eslint": "^8.55.0",
+    "prettier": "^3.1.0",
+    "typescript": "^5.3.2"
+  }
+}

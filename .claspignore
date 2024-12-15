@@ -1,0 +1,8 @@
+**/.git/**
+**/node_modules/**
+helper/**
+README.md
+.DS_Store
+**/.DS_Store
+.cursorrules
+.cursorruleshelper/**
