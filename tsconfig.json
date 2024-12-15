@@ -9,8 +9,12 @@
     "forceConsistentCasingInFileNames": true,
     "rootDir": "./apps-script",
     "outDir": "./build",
-    "types": ["google-apps-script", "node"],
-    "noEmit": true
+    "types": ["google-apps-script"],
+    "noEmit": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "strictNullChecks": true,
+    "experimentalDecorators": true
   },
   "include": ["apps-script/**/*"],
   "exclude": ["node_modules", "helper/**/*", "build"]
