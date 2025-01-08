@@ -17,31 +17,31 @@ const projectRoot = path.join(__dirname, '../..');
 const commands = {
   push: () => {
     console.log(chalk.blue('Pushing changes to Google Apps Script...'));
-    process.chdir(projectRoot); // Ensure we're in the right directory
+    process.chdir(appsScriptDir); // Changed to appsScriptDir
     execSync(`${clasp} push`, { stdio: 'inherit' });
   },
   
   pull: () => {
     console.log(chalk.blue('Pulling latest changes from Google Apps Script...'));
-    process.chdir(projectRoot);
+    process.chdir(appsScriptDir); // Changed to appsScriptDir
     execSync(`${clasp} pull`, { stdio: 'inherit' });
   },
   
   open: () => {
     console.log(chalk.blue('Opening project in Google Apps Script editor...'));
-    process.chdir(projectRoot);
+    process.chdir(appsScriptDir); // Changed to appsScriptDir
     execSync(`${clasp} open`, { stdio: 'inherit' });
   },
   
   status: () => {
     console.log(chalk.blue('Checking project status...'));
-    process.chdir(projectRoot);
+    process.chdir(appsScriptDir); // Changed to appsScriptDir
     execSync(`${clasp} status`, { stdio: 'inherit' });
   },
   
   watch: () => {
     console.log(chalk.blue('Watching for changes...'));
-    process.chdir(projectRoot);
+    process.chdir(appsScriptDir); // Changed to appsScriptDir
     execSync(`${clasp} push --watch`, { stdio: 'inherit' });
   },
 
@@ -52,15 +52,12 @@ const commands = {
       fs.mkdirSync(appsScriptDir, { recursive: true });
     }
     
-    process.chdir(projectRoot);
-    // Always set rootDir to apps-script
+    process.chdir(appsScriptDir); // Changed to appsScriptDir
     const args = process.argv.slice(3);
-    const rootDirArg = `--rootDir ./apps-script`;
-    const finalArgs = [...args, rootDirArg].join(' ');
+    const finalArgs = args.join(' ');
     
     try {
       execSync(`${clasp} create ${finalArgs}`, { stdio: 'inherit' });
-      
       // Move .clasp.json to project root if it was created in apps-script
       if (fs.existsSync(path.join(appsScriptDir, '.clasp.json'))) {
         fs.renameSync(
@@ -82,15 +79,12 @@ const commands = {
       fs.mkdirSync(appsScriptDir, { recursive: true });
     }
     
-    process.chdir(projectRoot);
-    // Always set rootDir to apps-script
+    process.chdir(appsScriptDir); // Changed to appsScriptDir
     const args = process.argv.slice(3);
-    const rootDirArg = `--rootDir ./apps-script`;
-    const finalArgs = [...args, rootDirArg].join(' ');
+    const finalArgs = args.join(' ');
     
     try {
       execSync(`${clasp} clone ${finalArgs}`, { stdio: 'inherit' });
-      
       // Move .clasp.json to project root if it was created in apps-script
       if (fs.existsSync(path.join(appsScriptDir, '.clasp.json'))) {
         fs.renameSync(

@@ -10,10 +10,7 @@
     "status": "node scripts/project-tools.js status",
     "watch": "node scripts/project-tools.js watch",
     "create": "node scripts/project-tools.js create",
-    "clone": "node scripts/project-tools.js clone",
-    "lint": "cd .. && eslint apps-script --ext .js,.ts",
-    "format": "cd .. && prettier --write \"apps-script/**/*.{js,ts}\"",
-    "type-check": "cd .. && tsc --noEmit"
+    "clone": "node scripts/project-tools.js clone"
   },
   "keywords": [
     "google-apps-script",

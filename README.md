@@ -1,117 +1,139 @@
-# Google Apps Script Project Template
+# Google Apps Script Helper
 
-A template for Google Apps Script projects with local development support using [clasp](https://github.com/google/clasp/tree/master) and [cursor](https://docs.cursor.com/getting-started/introduction).
+A project for managing and automating Google Apps Script development using clasp. This tool streamlines the development workflow for Google Apps Script projects with automated deployment and development tools integration.
+
+## Features
+
+- JavaScript/TypeScript support for Google Apps Script development
+- Automated project management with clasp
+- Watch mode for real-time development
+- ESLint and Prettier integration for code quality
+- Utility scripts for common operations
+- Environment-based configuration
+- Advanced clasp features support
+
+## Prerequisites
+
+- Node.js (Latest LTS version recommended)
+- npm or yarn
+- Google Account with Apps Script API enabled
+- Google Cloud Project with OAuth 2.0 credentials (for advanced features)
+
+## Installation
+
+1. Clone the repository:
+```bash
+git clone [your-repo-url]
+cd helper
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Copy the environment template and configure your settings:
+```bash
+cp .env.template .env
+```
+
+4. Configure your environment variables in `.env`:
+
+```env
+# Required Settings
+SCRIPT_ID=your_script_id_here
+PROJECT_NAME=your_project_name_here
+
+# OAuth 2.0 Client Settings (for advanced features)
+GOOGLE_CLIENT_ID=your_client_id_here
+GOOGLE_CLIENT_SECRET=your_client_secret_here
+GOOGLE_REFRESH_TOKEN=your_refresh_token_here
+
+# Optional Settings
+DEPLOYMENT_ID=your_deployment_id_here
+VERSION=head
+SPREADSHEET_ID=your_spreadsheet_id_here
+FOLDER_ID=your_drive_folder_id_here
+
+# Development Settings
+DEBUG=true
+LOG_LEVEL=debug|info|warn|error
+```
+
+## Available Scripts
+
+- `npm run push` - Push changes to Google Apps Script
+- `npm run pull` - Pull latest changes from Google Apps Script
+- `npm run open` - Open project in Google Apps Script editor
+- `npm run status` - Check project status
+- `npm run watch` - Watch for changes and auto-push
+- `npm run create` - Create a new Google Apps Script project
+- `npm run clone` - Clone an existing Google Apps Script project
 
 ## Project Structure
 
 ```
-.
-├── apps-script/         # Google Apps Script files (synced with Google)
-│   └── appsscript.json # Apps Script manifest
-├── helper/             # Development tools and scripts
-│   ├── scripts/        # Helper scripts
-│   ├── .env.template   # Environment variables template
-│   └── package.json    # Development dependencies
-├── .claspignore       # Files to ignore when pushing to Google Apps Script
-├── .eslintrc.json     # ESLint configuration
-└── .prettierrc        # Prettier configuration
+├── GAS/                # Google Apps Script files
+│   └── .claspignore   # Clasp ignore patterns (*.js, *.gs, appsscript.json)
+│   └── appsscript.json # Google Apps Script project configuration
+├── utils/             # Utility functions
+│   ├── ref/          # Reference files
+│   └── npm-tools.js  # NPM tooling scripts
+├── .env.template      # Environment variables template
+├── .eslintrc.json    # ESLint configuration
+├── package.json      # Project dependencies and scripts
+└── .gitignore       # Git ignore patterns
+├── .cursorrules     # Cursor rules
 ```
-
-## Setup
-
-1. Install dependencies in helper directory:
-
-   ```bash
-   cd helper
-   npm install
-   ```
-
-2. Login to clasp (only needed once):
-
-   ```bash
-   npx clasp login
-   ```
-
-3. Create or clone a Google Apps Script project:
-
-   ```bash
-   # Create new project
-   cd helper
-   npm run create -- --type standalone --title "My Script"
-
-   # Or clone existing project
-   cd helper
-   npm run clone -- <scriptId>
-   ```
-
-4. Set up environment variables:
-   ```bash
-   cd helper
-   cp .env.template .env
-   ```
-   Then edit `.env` with your project-specific values.
 
 ## Development
 
-All commands should be run from the helper directory:
+This project provides an enhanced development experience with Google Apps Script. The development workflow is streamlined with:
 
-```bash
-cd helper
-npm run push    # Push changes to Google Apps Script
-npm run pull    # Pull latest changes from Google Apps Script
-npm run open    # Open project in Google Apps Script editor
-npm run status  # Check project status
-npm run watch   # Watch for changes and push automatically
-```
+- ESLint for code linting
+- Prettier for code formatting
+- Clasp for Google Apps Script integration
 
-### Code Quality Tools
+### Configuration Files
 
-```bash
-npm run lint    # Run ESLint
-npm run format  # Run Prettier
-```
+- `.env`: Contains environment-specific configuration
+- `.claspignore`: Specifies which files should be included in clasp pushes
+- `.eslintrc.json`: ESLint rules for code quality
+- `package.json`: Project dependencies and npm scripts
 
-## Environment Variables
+### Getting Started with Development
 
-The following environment variables can be set in `helper/.env`:
+1. Enable the Google Apps Script API in your Google Cloud Console
+2. Set up OAuth 2.0 credentials if using advanced features
+3. Configure your `.env` file with the necessary credentials
+4. Run `npm run create` to start a new project or `npm run clone` to clone an existing one
+5. Use `npm run watch` during development for automatic pushes
 
-- `SCRIPT_ID`: Your Google Apps Script project ID
-- `PROJECT_NAME`: Name of your project
-- `DEPLOYMENT_ID`: (Optional) Deployment ID for versioned deployments
-- `DEBUG`: (Optional) Enable debug mode
-- `LOG_LEVEL`: (Optional) Set logging level (debug|info|warn|error)
+### Best Practices
 
-See `helper/.env.template` for all available options.
+- Keep sensitive information in `.env` (not in version control)
+- Follow the ESLint rules for consistent code style
+- Commit regularly and use meaningful commit messages
 
-## Project Organization
+## Troubleshooting
 
-### `/apps-script` Directory
+Common issues and solutions:
 
-This directory contains all files that will be synced with Google Apps Script:
+- **Authentication Errors**: Ensure your OAuth credentials are correctly set in `.env`
+- **Push/Pull Failures**: Verify your `SCRIPT_ID` and permissions
 
-- `.gs` or `.js` files containing your Google Apps Script code
-- `appsscript.json` manifest file
+## License
 
-### `/helper` Directory
+MIT
 
-Contains all development tools and scripts:
+## Author
 
-- Node.js dependencies
-- Development scripts
-- Environment configuration
+Michael Stansky
 
-### Root Directory
+## Contributing
 
-Contains project-wide configuration files:
-
-- TypeScript configuration
-- ESLint configuration
-- Prettier configuration
-- Clasp configuration
-
-## Notes
-
-- All Google Apps Script files must be in the `/apps-script` directory
-- Helper files and node packages must stay in the `/helper` directory
-- The project is set up for Google Apps Script editor compatibility
-- TypeScript, ESLint, and Prettier configurations are in the root directory but only apply to files in `/apps-script`
+1. Fork the repository
+2. Create your feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a new Pull Request

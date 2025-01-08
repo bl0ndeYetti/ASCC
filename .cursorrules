@@ -1,147 +1,67 @@
-### Project Structure
+// Project Structure Rules
+{
+  "allowedDirectories": {
+    "GAS": "Google Apps Script files only",
+    "project-tools": "Helper scripts and tools",
+    "utils": "Utility functions",
+    "node_modules": "Node.js dependencies"
+  },
 
-- **Root Directory**: Contains configuration files only. No node modules or Apps Script files here.
-- **`/apps-script` Directory**: Holds all Google Apps Script source files (`.gs`, `.js`).
-- **`/helper` Directory**: Contains Node.js dependencies, helper scripts, and development tools.
+  "GAS": {
+    "restrictions": [
+      "*.js files must be pure Google Apps Script compatible",
+      "No Node.js specific code or imports",
+      "Must follow google apps script syntax and avoid advanced API features unless necessary"
+    ],
+    "required": [
+      "appsscript.json",
+      ".claspignore"
+    ]
+  },
 
-### Directory and File Placement Rules
+  "project-tools": {
+    "permissions": [
+      "Create helper scripts",
+      "Use Node.js packages",
+      "Execute scripts with user approval"
+    ]
+  },
 
-1. **Apps Script Files**:
+  "initialization": {
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Would you like to create a new project or clone an existing one?",
+        "options": ["create", "clone"]
+      },
+      {
+        "type": "input",
+        "prompt": "What is your Google Apps Script project ID? (Leave blank for new project)",
+        "condition": "clone"
+      },
+      {
+        "type": "input",
+        "prompt": "What would you like to name your project?",
+        "required": true
+      }
+    ]
+  },
 
-   - All `.gs` or `.js` files intended for Google Apps Script must reside in `/apps-script`.
-   - Each Apps Script file must be compatible with the Google Apps Script runtime (V8) and must not use ES modules. Use global functions instead.
+  "assistanceFlow": {
+    "steps": [
+      "Verify Google Apps Script API is enabled",
+      "Set up necessary credentials",
+      "Configure project structure",
+      "Initialize development environment",
+      "Set up automated workflows"
+    ]
+  },
 
-2. **Helper Files and Node Dependencies**:
-
-   - All Node.js packages and helper scripts stay in `/helper`.
-   - No node packages should be installed directly in the root directory.
-
-3. **Configuration Files**:
-   - Place `.claspignore`, `.eslintrc.json`, `.prettierrc`, and `.env.template` files in the root directory.
-   - These configuration files are not pushed to Apps Script but control local development and linting/formatting rules.
-
-### Environment and Dependencies
-
-1. **Clasp and Project Setup**:
-
-   - All `clasp` operations and NPM commands must be run from the `/helper` directory.
-   - Before running any command, verify that you are in the `/helper` directory using `pwd` or `cd` commands as needed.
-
-2. **Configuration and Environment Variables**:
-   - Copy `.env.template` to `.env` and set required variables.
-   - Keep all sensitive data either in `.env` or the Apps Script's script properties.
-
-### Initialization Steps
-
-1. **Check Clasp Installation**:
-
-   ```bash
-   cd helper
-   npm list @google/clasp
-   ```
-
-   If not installed, run:
-
-   ```bash
-   npm install
-   ```
-
-2. **Install Dependencies**:
-
-   ```bash
-   cd helper
-   npm install
-   ```
-
-3. **Check Clasp Login Status**:
-
-   ```bash
-   npm run status
-   ```
-
-   If not logged in:
-
-   ```bash
-   npx clasp login
-   ```
-
-4. **Create or Clone Project**:
-
-   - **New Project**:
-     ```bash
-     npm run create -- --type standalone --title "My Script"
-     ```
-   - **Existing Project**:
-     ```bash
-     npm run clone -- <scriptId>
-     ```
-
-5. **Set Up Environment**:
-   ```bash
-   cp .env.template .env
-   # Edit .env with your values
-   ```
-
-### Development Workflow
-
-1. **File Creation and Editing**:
-
-   - Create and edit `.js` files in `/apps-script`.
-   - Ensure no imports/exports; define global functions.
-   - Add JSDoc comments for documentation.
-
-2. **Build, Push, and Watch**:
-   Run all commands from `/helper`:
-
-   ```bash
-   npm run push      # Push local changes to Apps Script
-   npm run pull      # Pull latest Apps Script code
-   npm run open      # Open Apps Script editor in browser
-   npm run status    # Check current clasp status
-   npm run watch     # Watch local files and push changes automatically
-   ```
-
-3. **Code Quality Tools**:
-   ```bash
-   npm run lint      # Run ESLint
-   npm run format    # Format code with Prettier
-   ```
-
-### Best Practices
-
-1. **Documentation**:
-
-   - Use JSDoc for documenting public functions.
-   - Be clear about parameter types and return values in comments.
-
-2. **Google Apps Script V8 Runtime**:
-
-   - Use modern JavaScript features (ES2019).
-   - Use `console.log()` for debug output.
-   - Implement `try/catch` blocks for error handling.
-   - Respect timezone and locale specifics.
-
-3. **Project Organization**:
-
-   - Keep Apps Script files in `/apps-script`.
-   - Use meaningful filenames and separate concerns into multiple files if needed.
-   - Handle sensitive information with `.env` and script properties.
-
-4. **Security and Credentials**:
-
-   - Use environment variables for sensitive data.
-   - If using external APIs, store keys in Script Properties.
-   - Follow Google's OAuth and security guidelines.
-
-5. **Development Flow**:
-   - Always verify the current working directory is `/helper` before running `npm run` commands.
-   - Use version control (git) for code changes.
-   - Test locally, then push changes.
-   - Use `npm run watch` for quick development cycles.
-
-### Additional Notes
-
-- V8 runtime is enabled by default, no need for manual activation.
-- The provided ESLint/Prettier configs ensure compatibility with Google Apps Script.
-- No ES modules; all code must be accessible as global functions.
-- Checking the working directory frequently helps prevent confusion and mistakes.
+  "development": {
+    "enforceRules": [
+      "Keep all GAS files in /GAS directory",
+      "Use project-tools for automation scripts",
+      "Maintain separation between Node.js and GAS code"
+    ]
+  }
+}
